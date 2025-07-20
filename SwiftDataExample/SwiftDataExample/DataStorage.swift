@@ -68,7 +68,7 @@ import SwiftData
         }
         container.mainContext.insert(review)
         try? container.mainContext.save()
-        _reviewList.append(review)
+        fetchReviewList()
     }
     
     func deleteReview(_ review: Review) {
@@ -78,7 +78,7 @@ import SwiftData
         let targetId = review.id
         try? container.mainContext.delete(model: Review.self, where: #Predicate { $0.id == targetId })
         try? container.mainContext.save()
-        _reviewList.removeAll { review == $0 }
+        fetchReviewList()
     }
     
     func addNewTag(_ tag: Tag) {
@@ -86,8 +86,8 @@ import SwiftData
             return
         }
         container.mainContext.insert(tag)
-        _tagList.append(tag)
         try? container.mainContext.save()
+        _tagList.append(tag)
     }
     
     func deleteTagList(_ tagSet: Set<Tag>) {

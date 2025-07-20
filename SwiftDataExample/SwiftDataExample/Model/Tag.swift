@@ -2,10 +2,11 @@ import Foundation
 import SwiftData
 
 @Model
-final class Tag: Identifiable {
+final class Tag {
     @Attribute(.unique) var id = UUID()
     var name: String
     var color: ColorData
+    @Relationship(inverse: \Review.tagList) var relatedReviewList: [Review]?
     
     init(
         name: String,
@@ -13,5 +14,6 @@ final class Tag: Identifiable {
     ) {
         self.name = name
         self.color = color
+        self.relatedReviewList = nil
     }
 }
